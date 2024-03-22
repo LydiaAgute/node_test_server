@@ -20,6 +20,8 @@ router.post('/test-post', (req, res) => {
     console.log('POST Request Body:', req.body);
     console.log('POST Request Headers:', req.headers);
 
+    const contentType = req.headers['content-type'];
+    
 	if (contentType.includes('application/json')) {
         // 处理 JSON 类型的请求体
         console.log('Received JSON data:', req.body);
