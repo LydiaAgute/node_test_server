@@ -2,6 +2,7 @@
   "name": "node_test_server",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "start": "node src/app.js"

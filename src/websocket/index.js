@@ -1,7 +1,7 @@
-const WebSocket = require('ws');
+import { WebSocketServer } from 'ws';
 
 const setupWebSocket = (server) => {
-  const wss = new WebSocket.Server({ server });
+  const wss = new WebSocketServer({ server });
 
   wss.on('connection', (socket) => {
     console.log('Client connected');
@@ -17,4 +17,4 @@ const setupWebSocket = (server) => {
   });
 };
 
-module.exports = setupWebSocket;
+export default setupWebSocket;

@@ -1,6 +1,6 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
 
 const router = express.Router();
 
@@ -48,4 +48,4 @@ router.get('/download/:filename', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

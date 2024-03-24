@@ -1,18 +1,16 @@
-const express = require('express');
-const http = require('http');
-const WebSocket = require('ws');
+import express from 'express';
+import http from 'http';
 
-const uploadRoutes = require('./http/upload');
-const downloadRoutes = require('./http/download');
-const basicRoutes = require('./http/basic');
-const setupWebSocket = require('./websocket');
+import uploadRoutes from './http/upload.js';
+import downloadRoutes from './http/download.js';
+import basicRoutes from './http/basic.js';
+import setupWebSocket from './websocket/index.js';
 
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
 
 // WebSocket 服务实例
-setupWebSocket(wss);
+setupWebSocket(server);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
