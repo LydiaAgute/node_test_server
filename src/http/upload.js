@@ -29,7 +29,8 @@ router.post('/stream-upload', (req, res) => {
     return res.status(400).send('Filename is required');
   }
 
-  const targetPath = path.join(__dirname, 'uploads', filename);
+  // 使用 process.cwd() 获取当前工作目录
+  const targetPath = path.join(process.cwd(), 'file', filename);
   const writeStream = fs.createWriteStream(targetPath);
 
   req.pipe(writeStream);
