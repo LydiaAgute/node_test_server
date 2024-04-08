@@ -57,4 +57,52 @@ router.post('/test-post', (req, res) => {
   });
 });
 
+// 处理 PUT 请求的测试接口
+router.put('/test-put', (req, res) => {
+  console.log('PUT Request Body:', req.body);
+  console.log('PUT Request Headers:', req.headers);
+
+  const contentType = req.headers['content-type'];
+
+  if (contentType && contentType.includes('application/json')) {
+    // 处理 JSON 类型的请求体
+    console.log('Received JSON data:', req.body);
+  } else if (contentType && contentType.includes('application/x-www-form-urlencoded')) {
+    // 处理 URL 编码的 Form 表单类型的请求体
+    console.log('Received URL encoded data:', req.body);
+  } else {
+    // 处理其他类型
+    console.log('Received other type of data');
+  }
+
+  res.json({
+    message: 'PUT request handled successfully',
+    body: req.body,
+  });
+});
+
+// 处理 PATCH 请求的测试接口
+router.patch('/test-patch', (req, res) => {
+  console.log('PATCH Request Body:', req.body);
+  console.log('PATCH Request Headers:', req.headers);
+
+  const contentType = req.headers['content-type'];
+
+  if (contentType && contentType.includes('application/json')) {
+    // 处理 JSON 类型的请求体
+    console.log('Received JSON data:', req.body);
+  } else if (contentType && contentType.includes('application/x-www-form-urlencoded')) {
+    // 处理 URL 编码的 Form 表单类型的请求体
+    console.log('Received URL encoded data:', req.body);
+  } else {
+    // 处理其他类型
+    console.log('Received other type of data');
+  }
+
+  res.json({
+    message: 'PATCH request handled successfully',
+    body: req.body,
+  });
+});
+
 export default router;
