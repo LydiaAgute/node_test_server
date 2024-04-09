@@ -22,15 +22,14 @@ router.post('/upload', upload.single('file'), (req, res) => {
   res.json({ message: 'File uploaded successfully' });
 });
 
-// 流式文件上传接口
-router.post('/stream-upload', (req, res) => {
+
+function handleFileUpload(req, res) {
   const filename = req.headers['x-filename'];
   if (!filename) {
     return res.status(400).send('Filename is required');
   }
 
-  // 使用 process.cwd() 获取当前工作目录
-  const targetPath = path.join(process.cwd(), 'file', filename);
+  const targetPath = path.join(process.cwd(), 'files', filename);
   const writeStream = fs.createWriteStream(targetPath);
 
   req.pipe(writeStream);
@@ -40,14 +39,19 @@ router.post('/stream-upload', (req, res) => {
   });
 
   req.on('error', (err) => {
-    console.log('Error during file streaming', err);
+    console.error('Error during file streaming', err);
     res.status(500).send('Error during file streaming');
   });
 
   writeStream.on('error', (err) => {
-    console.log('Error writing file', err);
+    console.error('Error writing file', err);
     res.status(500).send('Error writing file');
   });
-});
+}
+
+// 流式文件上传接口
+router.post('/stream-upload', handleFileUpload);
+router.put('/stream-upload', handleFileUpload);
+router.patch('/stream-upload', handleFileUpload);
 
 export default router;
