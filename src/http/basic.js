@@ -15,10 +15,10 @@ router.get('/test-get', (req, res) => {
 
 router.get('/test-redirect', (req, res) => {
   // 使用 302 临时重定向
-  res.redirect(302, '/test-get');
+  res.redirect(302, 'test-get');
 
   // 如果你想要使用 301 永久重定向，可以这样写：
-  // res.redirect(301, '/test-get');
+  // res.redirect(301, 'test-get');
 });
 
 // 模拟长阻塞后响应的接口
