@@ -8,7 +8,7 @@ const router = express.Router();
 // 设置 Multer 中间件
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'file/');
+    cb(null, 'files/');
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);

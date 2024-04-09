@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/download/:filename', (req, res) => {
   const filename = req.params.filename;
   // 使用 process.cwd() 获取当前工作目录
-  const filePath = path.join(process.cwd(), 'file', filename);
+  const filePath = path.join(process.cwd(), 'files', filename);
 
   fs.stat(filePath, (err, stats) => {
     if (err) {
