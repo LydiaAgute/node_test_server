@@ -5,7 +5,6 @@ const router = express.Router();
 // 处理 GET 请求的测试接口
 router.get('/test-get', (req, res) => {
   console.log('GET Request Query Parameters:', req.query);
-  console.log('GET Request Headers:', req.headers);
 
   res.json({
     message: 'GET request handled successfully',
@@ -24,7 +23,6 @@ router.get('/test-redirect', (req, res) => {
 // 模拟长阻塞后响应的接口
 router.get('/long-response', (req, res) => {
   console.log('long-response Request Query Parameters:', req.query);
-  console.log('long-response Request Headers:', req.headers);
   // 模拟长阻塞，延迟5秒钟
   setTimeout(() => {
     res.send('This is a response after 10 second blocking.');
@@ -34,7 +32,6 @@ router.get('/long-response', (req, res) => {
 // 模拟长阻塞后无响应的接口
 router.get('/no-response', (req, res) => {
   console.log('no-response Request Query Parameters:', req.query);
-  console.log('no-response Request Headers:', req.headers);
   // 模拟长阻塞，不发送任何响应
   setTimeout(() => {
     // 这里不发送任何响应，模拟长阻塞后无响应
@@ -44,7 +41,6 @@ router.get('/no-response', (req, res) => {
 // 处理 POST 请求的测试接口
 router.post('/test-post', (req, res) => {
   console.log('POST Request Body:', req.body);
-  console.log('POST Request Headers:', req.headers);
 
   const contentType = req.headers['content-type'];
 
@@ -68,7 +64,6 @@ router.post('/test-post', (req, res) => {
 // 处理 PUT 请求的测试接口
 router.put('/test-put', (req, res) => {
   console.log('PUT Request Body:', req.body);
-  console.log('PUT Request Headers:', req.headers);
 
   const contentType = req.headers['content-type'];
 
@@ -92,7 +87,6 @@ router.put('/test-put', (req, res) => {
 // 处理 PATCH 请求的测试接口
 router.patch('/test-patch', (req, res) => {
   console.log('PATCH Request Body:', req.body);
-  console.log('PATCH Request Headers:', req.headers);
 
   const contentType = req.headers['content-type'];
 
