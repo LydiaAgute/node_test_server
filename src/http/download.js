@@ -49,4 +49,37 @@ router.get('/download/:filename', (req, res) => {
   });
 });
 
+// 测试挂起状态和速度限制的接口
+router.get('/slow-download', (req, res) => {
+  const lowSpeedLimit = parseInt(req.query.lowSpeedLimit, 10) || 1; // 读取 lowSpeedLimit 参数，默认为 1 字节/秒
+  const fileSize = 1024 * 1024 * 10; // 模拟一个10MB的文件
+  const buffer = Buffer.alloc(fileSize, 'a'); // 创建一个虚拟文件内容
+  let bytesSent = 0; // 已发送字节数
+  const totalChunks = buffer.length;
+
+  res.writeHead(200, {
+    'Content-Length': totalChunks,
+    'Content-Type': 'application/octet-stream',
+  });
+
+  // 模拟缓慢发送数据，发送速度低于lowSpeedLimit
+  const interval = setInterval(() => {
+    const chunkSize = Math.floor(lowSpeedLimit / 2); // 发送速度设置为低于 lowSpeedLimit 的一半
+    const chunk = buffer.subarray(bytesSent, bytesSent + chunkSize); // 从缓冲区中切出一部分
+    res.write(chunk); // 将块发送给客户端
+    bytesSent += chunkSize;
+
+    // 如果所有数据都发送完了
+    if (bytesSent >= totalChunks) {
+      clearInterval(interval);
+      res.end(); // 结束响应
+    }
+  }, 1000); // 每秒发送一次数据
+
+  // 如果客户端断开连接，清除定时器
+  req.on('close', () => {
+    clearInterval(interval);
+  });
+});
+
 export default router;
