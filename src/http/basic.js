@@ -139,7 +139,7 @@ router.post('/test-user', (req, res) => {
 });
 
 // GET /test-delay - returns a message after a delay
-app.get('/test-delay', (req, res) => {
+router.get('/test-delay', (req, res) => {
   // Default delay time is 10 seconds (10000 milliseconds)
   const delay = parseInt(req.query.delay) || 10000;
   setTimeout(() => {
