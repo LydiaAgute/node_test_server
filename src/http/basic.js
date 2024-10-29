@@ -70,7 +70,10 @@ router.put('/test-put', (req, res) => {
   if (contentType && contentType.includes('application/json')) {
     // 处理 JSON 类型的请求体
     console.log('Received JSON data:', req.body);
-  } else if (contentType && contentType.includes('application/x-www-form-urlencoded')) {
+  } else if (
+    contentType &&
+    contentType.includes('application/x-www-form-urlencoded')
+  ) {
     // 处理 URL 编码的 Form 表单类型的请求体
     console.log('Received URL encoded data:', req.body);
   } else {
@@ -93,7 +96,10 @@ router.patch('/test-patch', (req, res) => {
   if (contentType && contentType.includes('application/json')) {
     // 处理 JSON 类型的请求体
     console.log('Received JSON data:', req.body);
-  } else if (contentType && contentType.includes('application/x-www-form-urlencoded')) {
+  } else if (
+    contentType &&
+    contentType.includes('application/x-www-form-urlencoded')
+  ) {
     // 处理 URL 编码的 Form 表单类型的请求体
     console.log('Received URL encoded data:', req.body);
   } else {
@@ -105,6 +111,42 @@ router.patch('/test-patch', (req, res) => {
     message: 'PATCH request handled successfully',
     body: req.body,
   });
+});
+
+// GET /test-user - returns a user object
+router.get('/test-user', (req, res) => {
+  res.status(200).json({
+    id: 1,
+    name: 'John Doe',
+  });
+});
+
+// POST /test-user - returns a user object if body matches
+router.post('/test-user', (req, res) => {
+  const { name } = req.body;
+
+  // Check if the request body matches {"name": "Alice"}
+  if (name === 'Alice') {
+    res.status(200).json({
+      id: 2,
+      name: 'Alice',
+    });
+  } else {
+    res.status(400).json({
+      error: 'Invalid request body',
+    });
+  }
+});
+
+// GET /test-delay - returns a message after a delay
+app.get('/test-delay', (req, res) => {
+  // Default delay time is 10 seconds (10000 milliseconds)
+  const delay = parseInt(req.query.delay) || 10000;
+  setTimeout(() => {
+    res.status(200).json({
+      message: `${delay / 1000} seconds passed`,
+    });
+  }, delay);
 });
 
 export default router;
