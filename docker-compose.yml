@@ -1,0 +1,10 @@
+services:
+  node_test_server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: tyliu9/node_test_server:latest
+    ports:
+      - '3001:3000' # 主机端口:容器端口，根据实际情况修改
+    volumes:
+      - ./files:/app/files # 挂载主机的 ./files 目录到容器内的 /app/files 目录
